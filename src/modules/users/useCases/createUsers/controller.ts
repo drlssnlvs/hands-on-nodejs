@@ -1,5 +1,5 @@
 import BaseController, {
-  ControllerMethodType
+  ControllerMethodType,
 } from "@shared/commons/BaseController";
 import { Request, Response } from "express";
 
@@ -8,10 +8,10 @@ import Joi from "joi";
 import { PrismaClient } from "@prisma/client";
 
 export class CreateUsersController extends BaseController {
-  db: PrismaClient
+  db: PrismaClient;
 
   constructor(db: PrismaClient) {
-    super()
+    super();
 
     this.db = db;
   }
@@ -25,8 +25,8 @@ export class CreateUsersController extends BaseController {
         body: Joi.object({
           name: Joi.string().required(),
           email: Joi.string().required().email(),
-          password: Joi.string().required()
-        })
+          password: Joi.string().required(),
+        }),
       },
       fn: async (req: Request, res: Response): Promise<unknown> => {
         try {

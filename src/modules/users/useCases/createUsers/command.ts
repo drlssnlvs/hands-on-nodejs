@@ -8,33 +8,43 @@ import { hash } from "bcryptjs";
 interface IRequest {
   name: string;
   email: string;
-  password: string
+  password: string;
 }
 
 export class CreateUsersCommand extends BaseCommand {
-  db: PrismaClient
+  db: PrismaClient;
 
-  usersRepositories: UsersRepositories
+  usersRepositories: UsersRepositories;
 
   constructor(db: PrismaClient) {
     super();
 
-    this.db = db
+    this.db = db;
 
-    this.usersRepositories = new UsersRepositories(db)
+    this.usersRepositories = new UsersRepositories(db);
   }
 
-  async execute({ email, name, password }: IRequest): Promise<UserEntities | boolean> {
-    const checkIfUserAlreadyRegister = await this.usersRepositories.findOne(email);
+  async execute({
+    email,
+    name,
+    password,
+  }: IRequest): Promise<UserEntities | boolean> {
+    const checkIfUserAlreadyRegister = await this.usersRepositories.findOne(
+      email
+    );
 
     if (checkIfUserAlreadyRegister) {
-      return this.addError("this email already register")
+      return this.addError("this email already register");
     }
 
     const hashedPassword = await hash(password, 8);
 
-    const user = await this.usersRepositories.create({ email, name, password: hashedPassword });
+    const user = await this.usersRepositories.create({
+      email,
+      name,
+      password: hashedPassword,
+    });
 
-    return UTILS.PROJECTION(user, { password: 0 }) as UserEntities
+    return UTILS.PROJECTION(user, { password: 0 }) as UserEntities;
   }
 }

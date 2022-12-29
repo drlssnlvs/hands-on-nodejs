@@ -15,12 +15,7 @@ export class UserEntities {
 
   password: string;
 
-  constructor({
-    name,
-    email,
-    password,
-    role = "user"
-  }: UserEntities) {
+  constructor({ name, email, password, role = "user" }: UserEntities) {
     this.name = name;
     this.email = email;
     this.password = password;

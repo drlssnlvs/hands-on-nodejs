@@ -36,5 +36,5 @@ export const Validator = (schema: ISchemaType) => {
     }
 
     next();
-  }
-}
+  };
+};

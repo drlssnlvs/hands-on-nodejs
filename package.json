@@ -6,7 +6,8 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --ignore node_modules src/index.ts",
     "lint": "ts-node-dev -r tsconfig-paths/register eslint --fix './src/**/*.ts' && prettier --write './src/**/*.ts'",
     "start": "ts-node-dev --respawn --transpile-only --exit-child src/app.ts",
-    "build": "tsc . -p"
+    "build": "tsc . -p",
+    "test": "NODE_ENV=test jest --runInBand"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

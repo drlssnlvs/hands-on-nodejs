@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import { ERRORS } from "@shared/commons/constants";
 import { verify } from "jsonwebtoken";
 
-export type IRolesTypes = "user" | "admin"
+export type IRolesTypes = "user" | "admin";
 
 export type IAuthType = {
   roles: string[];
@@ -11,8 +11,8 @@ export type IAuthType = {
 
 export type IDecodedTokenType = {
   id: string;
-  role: string
-}
+  role: string;
+};
 
 declare global {
   namespace Express {
@@ -34,28 +34,32 @@ export const Auth = (auth: IAuthType) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      return res.status(ERRORS.UNAUTHORIZED.code).json(ERRORS.UNAUTHORIZED.json)
+      return res
+        .status(ERRORS.UNAUTHORIZED.code)
+        .json(ERRORS.UNAUTHORIZED.json);
     }
 
     const [_, token] = authorization.split(" ");
 
     try {
-      const decoded = verify(token, process.env.PRIVATE_KEY)
+      const decoded = verify(token, process.env.PRIVATE_KEY);
 
-      const { id, role } = decoded as IDecodedTokenType
+      const { id, role } = decoded as IDecodedTokenType;
 
       if (!roles.includes(role)) {
-        return res.status(ERRORS.FORBIDDEN.code).json(ERRORS.FORBIDDEN.json)
+        return res.status(ERRORS.FORBIDDEN.code).json(ERRORS.FORBIDDEN.json);
       }
 
       req.user = {
         id,
         role,
-      }
+      };
 
-      next()
+      next();
     } catch (error) {
-      return res.status(ERRORS.UNAUTHORIZED.code).json(ERRORS.UNAUTHORIZED.json)
+      return res
+        .status(ERRORS.UNAUTHORIZED.code)
+        .json(ERRORS.UNAUTHORIZED.json);
     }
   };
 };
