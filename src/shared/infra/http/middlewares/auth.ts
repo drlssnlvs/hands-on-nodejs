@@ -3,6 +3,8 @@ import { NextFunction, Request, Response } from "express";
 import { ERRORS } from "@shared/commons/constants";
 import { verify } from "jsonwebtoken";
 
+export type IRolesTypes = "user" | "admin"
+
 export type IAuthType = {
   roles: string[];
 };
