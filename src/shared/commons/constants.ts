@@ -14,3 +14,17 @@ export const ERRORS = {
     },
   }
 }
+
+export const UTILS = {
+  PROJECTION: (obj: Object, fields: Object) => {
+    var newObj: Object = obj;
+
+    Object.keys(fields).map((item) => {
+      if (fields[item] === 0) {
+        delete newObj[item]
+      }
+    })
+
+    return newObj
+  }
+}

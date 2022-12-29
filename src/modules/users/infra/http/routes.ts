@@ -10,7 +10,7 @@ export class UsersRoutes {
 
     const { handle: createUsers } = new CreateUsersController(db);
 
-    routes.get(
+    routes.post(
       "/",
       Validator(createUsers.schema),
       Auth(createUsers.auth),

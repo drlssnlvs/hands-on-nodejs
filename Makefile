@@ -19,6 +19,9 @@ prisma-migrate: ## create prisma migration
 prisma-generate: ## prisma generate env
 	yarn prisma generate
 
+prisma-push: ## up data prisma
+	yarn prisma db push
+
 prisma-client: ## open prisma client
 	yarn prisma studio
 
